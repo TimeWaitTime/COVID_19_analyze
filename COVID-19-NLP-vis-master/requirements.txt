@@ -1,0 +1,10 @@
+flask
+numpy
+pandas
+jieba
+matplotlib
+snownlp
+lxml
+scipy
+pyecharts==2.0.3
+gunicorn

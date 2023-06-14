@@ -12,7 +12,7 @@ from matplotlib.font_manager import FontProperties
 
 #------------------------------------中文分词------------------------------------
 cut_words = ""
-data = pd.read_csv('dataSets\\中国社会组织_疫情防控-5_21.csv')
+data = pd.read_csv('C:/Users/lenovo/Desktop/COVID-19/COVID-19-NLP-vis-master/dataSets/中国社会组织_疫情防控-5_21.csv', encoding='gbk')
 
 for line in data['正文内容']:
     line = str(line)

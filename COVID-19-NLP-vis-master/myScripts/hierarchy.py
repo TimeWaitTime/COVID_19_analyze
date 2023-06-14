@@ -15,7 +15,7 @@ mpl.rcParams['font.sans-serif'] = ['SimHei']
 
 #------------------------------ 第一步 计算TOP100 ------------------------------
 # 计算中文分词词频TOP100
-datapd = pd.read_csv('dataSets/中国社会组织_疫情防控-5_21.csv')
+datapd = pd.read_csv('C:/Users/lenovo/Desktop/COVID-19/COVID-19-NLP-vis-master/dataSets/中国社会组织_疫情防控-5_21.csv', encoding='gbk')
 
 cut_words = ""
 all_words = ""
@@ -48,7 +48,7 @@ for (k,v) in c.most_common(50):
 # 过滤
 cut_words = ""
 f = open('C-key.txt', 'w')
-datapd = pd.read_csv('dataSets\\中国社会组织_疫情防控-5_21.csv')
+datapd = pd.read_csv('C:/Users/lenovo/Desktop/COVID-19/COVID-19-NLP-vis-master/dataSets/中国社会组织_疫情防控-5_21.csv', encoding='gbk')
 for line in datapd['正文内容']:
     line = str(line)
     seg_list = jieba.cut(line,cut_all=False)
@@ -76,7 +76,7 @@ mytext_list = list1
 # count_vec = CountVectorizer(min_df=3, max_df=3)
 count_vec = CountVectorizer(min_df=3)
 xx1 = count_vec.fit_transform(list1).toarray()
-word = count_vec.get_feature_names() 
+word = count_vec.get_feature_names_out()
 print("word feature length: {}".format(len(word)))
 print(word)
 print(xx1.shape)

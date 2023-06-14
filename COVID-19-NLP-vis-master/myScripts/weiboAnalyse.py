@@ -5,11 +5,16 @@ from pyecharts.globals import CurrentConfig, NotebookType
 import pandas as pd
 from pyecharts.charts import Line
 from pyecharts.commons.utils import JsCode
-
+import mysql.connector
 
 def generateData():
-    import psycopg2
-    conn = psycopg2.connect(database="hw8", user="postgres", password="postgres", host="127.0.0.1", port="5432")
+    conn = mysql.connector.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="root",
+        database="hw8"
+    )
     print("Opened database successfully" )
 
     cur = conn.cursor()
@@ -55,36 +60,48 @@ def generateData():
     
     return results
 
+
 def generateSentimentsline():
-    import psycopg2
-    conn = psycopg2.connect(database="hw8", user="postgres", password="postgres", host="127.0.0.1", port="5432")
-    print("Opened database successfully" )
+    conn = mysql.connector.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="root",
+        database="hw8"
+    )
+    print("Opened database successfully")
 
     cur = conn.cursor()
-    query="select month ||'-'|| day as time, avg(sentiments) from weibo group by day,month order by month,day;"
+    query = "select concat(month, '-', day) as time, avg(sentiments) from weibo group by day, month order by month, day;"
     cur.execute(query)
-    rows = cur.fetchall()   
+    rows = cur.fetchall()
+
     date_list = []
     s_list = []
     for row in rows:
         date_list.append(row[0])
         s_list.append(row[1])
+
     line = (
         Line()
         .add_xaxis(date_list)
-        # 平均线 最大值 最小值
-        .add_yaxis('sentiments', s_list, is_smooth=True,
-                markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(type_="max"),
-                                                        opts.MarkPointItem(type_="min")]))
-        # 隐藏数字 设置面积
+        .add_yaxis(
+            series_name='sentiments',
+            y_axis=s_list,
+            is_smooth=True,
+            markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(type_="max"), opts.MarkPointItem(type_="min")])
+        )
         .set_series_opts(
             areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-            label_opts=opts.LabelOpts(is_show=False))
-        # 设置x轴标签旋转角度
-        .set_global_opts(xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=-30)), 
-                        yaxis_opts=opts.AxisOpts(name='sentiments', min_=0), 
-                        title_opts=opts.TitleOpts(title='微博情感分析每日平均值'))          
+            label_opts=opts.LabelOpts(is_show=False)
         )
+        .set_global_opts(
+            xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=-30)),
+            yaxis_opts=opts.AxisOpts(name='sentiments', min_=0),
+            title_opts=opts.TitleOpts(title='微博情感分析每日平均值')
+        )
+    )
+
     line.render("微博情感分析每日平均值.html")
 
 
@@ -105,24 +122,26 @@ def weiboidf():
     import matplotlib.pyplot as plt
     import numpy as np
     from matplotlib.font_manager import FontProperties
-    keywords = list(pd.read_csv('notebook/TF_IDF关键词前50.csv'))
-    ss = pd.DataFrame(keywords,columns = ['词语','重要性'])     
+    keywords_df = pd.read_csv('C:/Users/lenovo/Desktop/COVID-19/COVID-19-NLP-vis-master/dataSets/TF_IDF关键词前50.csv')
+    keywords = keywords_df[['词语', '重要性']].values.tolist()
+    ss = pd.DataFrame(keywords, columns=['词语', '重要性'])
 
     plt.figure(figsize=(10,6))
     plt.title('TF-IDF Ranking')
     fig = plt.axes()
     plt.barh(range(len(ss.重要性[:25][::-1])),ss.重要性[:25][::-1])
     fig.set_yticks(np.arange(len(ss.重要性[:25][::-1])))
-    #font = FontProperties(fname=r'c:\windows\fonts\simsun.ttc')
-    fig.set_yticklabels(ss.词语[:25][::-1])
+    font_prop = FontProperties(fname='C:/Windows/Fonts/simsun.ttc')
+    # 设置y轴刻度标签的字体属性
+    fig.set_yticklabels(ss.词语[:25][::-1], fontproperties=font_prop)
     fig.set_xlabel('Importance')
     plt.show()
 
 if __name__ == "__main__":
-    weiboidf()
+    #weiboidf()
     #generateSentimentsline()
-
-"""    results = generateData()
-    with open("weiboWordData.py",'w',encoding='utf-8') as f:
-        f.write("date_data="+str(results))
-        f.close()"""
+    weiboWordcloud(20)
+    # results = generateData()
+    # with open("weiboWordData.py",'w',encoding='utf-8') as f:
+    #     f.write("date_data="+str(results))
+    #     f.close()

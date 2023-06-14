@@ -7,6 +7,12 @@ from pyecharts.charts import Line
 from pyecharts.commons.utils import JsCode
 import mysql.connector
 
+import sys
+
+# 添加模块所在的绝对路径
+module_path = 'C:/Users/lenovo/Desktop/COVID-19/COVID-19-NLP-vis-master/myScripts'
+sys.path.append(module_path)
+from myScripts.weiboWordData import date_data
 def generateData():
     conn = mysql.connector.connect(
         host="localhost",
@@ -107,7 +113,7 @@ def generateSentimentsline():
 
 # dateId: 0-50
 def weiboWordcloud(dateId):
-    from myScripts.weiboWordData import date_data
+
     words = date_data[int(dateId)][1]
     date = date_data[int(dateId)][0]
     c = (

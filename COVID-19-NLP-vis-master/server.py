@@ -63,6 +63,13 @@ def calendarchart():
 @app.route("/weibocloud")
 def weibocloud():
     return render_template("weibocloud.html", cates = countrylist)
+
+@app.route("/worldcloud")
+def worldcloud():
+    return render_template("worldcloud.html", cates = countrylist)
+@app.route("/weiboemo")
+def weiboemo():
+    return render_template("weiboemo.html", cates = countrylist)
 @app.route("/index")
 def index():
     return render_template("index.html")

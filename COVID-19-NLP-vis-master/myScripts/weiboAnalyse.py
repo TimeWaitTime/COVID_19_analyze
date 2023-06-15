@@ -144,9 +144,9 @@ def weiboidf():
     plt.show()
 
 if __name__ == "__main__":
-    #weiboidf()
+    weiboidf()
     #generateSentimentsline()
-    weiboWordcloud(20)
+    #weiboWordcloud(20)
     # results = generateData()
     # with open("weiboWordData.py",'w',encoding='utf-8') as f:
     #     f.write("date_data="+str(results))

@@ -8,3 +8,4 @@ lxml
 scipy
 pyecharts==2.0.3
 gunicorn
+selenium==4.9.1

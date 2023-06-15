@@ -16,7 +16,7 @@ auto;max-width: 900px;background-color:ivory;padding-left: 15px;padding-right: 1
   <h3 id="%E7%96%AB%E6%83%85%E6%95%B0%E6%8D%AE%E5%8A%A8%E6%80%81%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96%E5%9C%B0%E5%9B%BE">疫情数据动态交互可视化地图</h3>
   <p>共有三种地图类型：现存确诊率地图、累计死亡人数地图、死亡率（累计死亡人数/累计确诊人数）地图，可以通过下拉框进行选择；</p>
   <p>可以拖动时间轴上的滑块改变地图显示日期，范围为 1.19-5.19；</p>
-  <div id="current-maps">
+  <div id="current-maps" class="section">
     <div>
       <label>请选择地图类型:</label>
       <select name="select-map" id="mapselecter">
@@ -33,7 +33,7 @@ auto;max-width: 900px;background-color:ivory;padding-left: 15px;padding-right: 1
     <div id="chinaMap" class="maps" style="width:800px; height:600px;display: inline-block;"></div>
   </div>
 
-<div class="section">
+<div>
     <label>请选择国家：    </label>
     <select id="selectCountrys">
     {% for cate in cates %}

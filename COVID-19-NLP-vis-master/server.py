@@ -49,10 +49,17 @@ def init():
 @app.route("/a")
 def a():
     return render_template("a.html", cates = countrylist)
-
 @app.route("/Epidemic map")
-def sss():
+def Epidemicmap():
     return render_template("Epidemic map.html", cates = countrylist)
+@app.route("/Epidemic data curve")
+def Epidemicdatacurve():
+    return render_template("Epidemic data curve.html", cates = countrylist)
+
+@app.route("/calendar chart")
+def calendarchart():
+    return render_template("calendar chart.html", cates = countrylist)
+
 @app.route("/index")
 def index():
     return render_template("index.html")

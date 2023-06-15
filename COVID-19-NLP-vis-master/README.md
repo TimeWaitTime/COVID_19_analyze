@@ -34,9 +34,11 @@
 - notebook 分析时使用的notebook
 - myScripts python脚本（爬虫、可视化、数据处理等等）
   - spider-yqkx.py 人民网爬虫
+  - >网页已关闭
   - spider-社会组织.py 中国社会组织公共服务平台爬虫
+  - >网页已关闭
   - weibo_战疫情爬虫_spider.py  微博《战疫情》爬虫
-  - pyecharts-zhexian-country.py 使用pyecharts绘制任一国家疫情数据曲线图
+  - >网页已关闭
   - hierachy.py 层次聚类分析代码
   - jiebafenci.py jieba分词代码及词云图渲染
   - lineCountry.py 生成疫情曲线图
@@ -67,14 +69,6 @@
 
 1. 运行 server.py:
 
-Use docker:
-
-```
-docker build -t covidvisimage .
-docker run -d --name covidvis -p 5000:5000 covidvisimage
-```
-
-OR:
 
 ```
 pip3 install -r requirements.txt

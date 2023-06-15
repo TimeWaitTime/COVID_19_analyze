@@ -60,6 +60,9 @@ def Epidemicdatacurve():
 def calendarchart():
     return render_template("calendar chart.html", cates = countrylist)
 
+@app.route("/weibocloud")
+def weibocloud():
+    return render_template("weibocloud.html", cates = countrylist)
 @app.route("/index")
 def index():
     return render_template("index.html")

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>疫情数据动态交互可视化地图</title>
+</head>
+<body>
+<div style="margin-left: auto;margin-right:
+auto;max-width: 900px;background-color:ivory;padding-left: 15px;padding-right: 15px;">
+<script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts-wordcloud.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/china.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='render.js') }}"></script>
+  <h3 id="%E7%96%AB%E6%83%85%E6%95%B0%E6%8D%AE%E5%8A%A8%E6%80%81%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96%E5%9C%B0%E5%9B%BE">微博每日主题词词云图</h3>
+
+  <div id="current-maps" class="section">
+    <div>
+      <label>请选择地图类型:</label>
+      <select name="select-map" id="mapselecter">
+        <option value="0">现存确诊人数</option>
+        <option value="1">累计死亡人数</option>
+        <option value="2">死亡率（死亡/确诊）</option>
+      </select>
+    </div>
+    <div>
+      <label>拖动滑块即可切换日期:</label>
+      <input id='slider' style="width: 400px;vertical-align: middle;" type='range' min='0' max='121' step='1'/>
+    </div>
+    <div id="worldMap" class="maps" style="width:800px; height:600px;display: inline-block;"></div>
+    <div id="chinaMap" class="maps" style="width:800px; height:600px;display: inline-block;"></div>
+  </div>
+
+<div class="section">
+    <label>请选择国家：    </label>
+    <select id="selectCountrys">
+    {% for cate in cates %}
+        <option value="{{cate}}" >{{cate}}</option>
+    {% endfor %}
+    </select>
+    <div id="lines" style="width:1000px; height:600px;"></div>
+</div>
+<div class="section">
+    <div>
+        <label>拖动滑块即可切换日期:</label>
+        <input id='sliderWord' style="width: 400px;vertical-align: middle;" type='range' min='0' max='90' step='1'/>
+    </div>
+    <div id="wordcloud" style="width:1000px; height:600px;"></div>
+</div>
+
+<div>
+    <div>
+        <label>拖动滑块即可切换日期:</label>
+        <input id='sliderWeibo' style="width: 400px;vertical-align: middle;" type='range' min='0' max='49' step='1'/>
+    </div>
+    <div id="weibocloud" style="width:1000px; height:600px;"></div>
+<p>通过可视化交互分析可以发现：</p>
+<ul>
+<li>在疫情尚未大面积出现的前期，收集到的疫情相关主题词主要为2020、发烧、肺炎、穿山甲等等，疫情有关词语占主题词比例相对较少，主题词相对较为分散；其中也夹杂部分早期出现的如病毒性等描述；</li>
+<li>在1月12号左右，冠状病毒、肺炎等词语数量开始远大于其他非疫情相关词语；</li>
+<li>在1.23，随着武汉封城，武汉这一词汇提及次数也显著增大；</li>
+<li>在1月底二月初，疫情、新冠等词语也频繁被提及；加油这一词语也十分显著，表明了全国人民同疫情斗争的决心和对武汉的美好祝愿；</li>
+<li>该词云图也可以显著的反应出舆论热点，如2.6左右的李文亮医生去世事件就可以观察到李文亮一词在词云图中显著展示；</li>
+<li>肖战一词占比较少，但始终在词云图中出现，也许表明了在疫情期间仍然对于明星有一定的关注流量；</li>
+</ul>
+</div>
+    <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+            </div>
+  <!-- 这里可以添加其他内容或说明 -->
+
+  <!-- 引入相关的CSS和JavaScript文件 -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+<style>
+  .section {
+    display: none;
+  }
+</style>
+
+<script type="text/javascript" src="{{ url_for('static',filename='render.js') }}"></script>
+</div>
+</body>
+</html>

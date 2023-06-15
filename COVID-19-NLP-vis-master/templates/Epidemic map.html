@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>疫情数据动态交互可视化地图</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts-wordcloud.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/china.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='render.js') }}"></script>
+  <h3 id="%E7%96%AB%E6%83%85%E6%95%B0%E6%8D%AE%E5%8A%A8%E6%80%81%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96%E5%9C%B0%E5%9B%BE">疫情数据动态交互可视化地图</h3>
+  <p>共有三种地图类型：现存确诊率地图、累计死亡人数地图、死亡率（累计死亡人数/累计确诊人数）地图，可以通过下拉框进行选择；</p>
+  <p>可以拖动时间轴上的滑块改变地图显示日期，范围为 1.19-5.19；</p>
+  <div id="current-maps">
+    <div>
+      <label>请选择地图类型:</label>
+      <select name="select-map" id="mapselecter">
+        <option value="0">现存确诊人数</option>
+        <option value="1">累计死亡人数</option>
+        <option value="2">死亡率（死亡/确诊）</option>
+      </select>
+    </div>
+    <div>
+      <label>拖动滑块即可切换日期:</label>
+      <input id='slider' style="width: 400px;vertical-align: middle;" type='range' min='0' max='121' step='1'/>
+    </div>
+    <div id="worldMap" class="maps" style="width:800px; height:600px;display: inline-block;"></div>
+    <div id="chinaMap" class="maps" style="width:800px; height:600px;display: inline-block;"></div>
+  </div>
+
+<div class="section">
+    <label>请选择国家：    </label>
+    <select id="selectCountrys">
+    {% for cate in cates %}
+        <option value="{{cate}}" >{{cate}}</option>
+    {% endfor %}
+    </select>
+    <div id="lines" style="width:1000px; height:600px;"></div>
+</div>
+<div class="section">
+    <div>
+        <label>拖动滑块即可切换日期:</label>
+        <input id='sliderWord' style="width: 400px;vertical-align: middle;" type='range' min='0' max='90' step='1'/>
+    </div>
+    <div id="wordcloud" style="width:1000px; height:600px;"></div>
+</div>
+
+<div class="section">
+    <div>
+        <label>拖动滑块即可切换日期:</label>
+        <input id='sliderWeibo' style="width: 400px;vertical-align: middle;" type='range' min='0' max='49' step='1'/>
+    </div>
+    <div id="weibocloud" style="width:1000px; height:600px;"></div>
+</div>
+  <!-- 这里可以添加其他内容或说明 -->
+
+  <!-- 引入相关的CSS和JavaScript文件 -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+<style>
+  .section {
+    display: none;
+  }
+</style>
+
+<script type="text/javascript" src="{{ url_for('static',filename='render.js') }}"></script>
+</body>
+</html>
